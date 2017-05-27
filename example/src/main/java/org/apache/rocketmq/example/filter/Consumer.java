@@ -17,6 +17,7 @@
 package org.apache.rocketmq.example.filter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -34,7 +35,12 @@ public class Consumer {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         File classFile = new File(classLoader.getResource("MessageFilterImpl.java").getFile());
 
-        String filterCode = MixAll.file2String(classFile);
+        String filterCode = null;
+        try {
+            filterCode = MixAll.file2String(classFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         consumer.subscribe("TopicTest", "org.apache.rocketmq.example.filter.MessageFilterImpl",
             filterCode);
 

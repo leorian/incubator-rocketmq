@@ -17,6 +17,7 @@
 
 package org.apache.rocketmq.example.benchmark;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -108,11 +109,21 @@ public class Consumer {
             consumer.subscribe(topic, "*");
         } else {
             if (ExpressionType.TAG.equals(filterType)) {
-                String expr = MixAll.file2String(expression);
+                String expr = null;
+                try {
+                    expr = MixAll.file2String(expression);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.printf("Expression: %s%n", expr);
                 consumer.subscribe(topic, MessageSelector.byTag(expr));
             } else if (ExpressionType.SQL92.equals(filterType)) {
-                String expr = MixAll.file2String(expression);
+                String expr = null;
+                try {
+                    expr = MixAll.file2String(expression);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.printf("Expression: %s%n", expr);
                 consumer.subscribe(topic, MessageSelector.bySql(expr));
             } else {
