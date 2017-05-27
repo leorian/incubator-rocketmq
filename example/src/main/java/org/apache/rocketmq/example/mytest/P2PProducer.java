@@ -13,10 +13,10 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by xiezhonggui on 2017/5/27.
  */
-public class Producer {
+public class P2PProducer {
     public static void main(String args[]) throws MQClientException, UnsupportedEncodingException,
             RemotingException, InterruptedException, MQBrokerException {
-        DefaultMQProducer producer = new DefaultMQProducer("leoRain_producer");
+        DefaultMQProducer producer = new DefaultMQProducer("leoRain_p2p_producer");
         producer.setNamesrvAddr("localhost:9876");
         producer.start();
         Message msg = new Message("HelloWorld" /* Topic */,
@@ -25,6 +25,8 @@ public class Producer {
         );
         SendResult sendResult = producer.send(msg);
         System.out.println(sendResult);
+        //producer.sendOneway(msg);
+
         producer.shutdown();
 
     }

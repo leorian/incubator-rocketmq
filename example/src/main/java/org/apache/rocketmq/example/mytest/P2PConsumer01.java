@@ -7,15 +7,18 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
 import java.util.List;
 
 /**
  * Created by xiezhonggui on 2017/5/27.
  */
-public class Consumer {
+public class P2PConsumer01 {
     public static void main(String args[]) throws MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-consumer");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-consumer-01");
+        //consumer.setMessageModel(MessageModel.BROADCASTING);
+        consumer.setMessageModel(MessageModel.CLUSTERING);
         consumer.setNamesrvAddr("localhost:9876");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.subscribe("HelloWorld", "*");
