@@ -16,21 +16,16 @@
  */
 package org.apache.rocketmq.example.openmessaging;
 
-import io.openmessaging.Message;
-import io.openmessaging.MessageHeader;
-import io.openmessaging.MessagingAccessPoint;
-import io.openmessaging.MessagingAccessPointFactory;
-import io.openmessaging.OMS;
-import io.openmessaging.PullConsumer;
+import io.openmessaging.*;
 import io.openmessaging.rocketmq.domain.NonStandardKeys;
 
-public class SimplePullConsumer {
+public class SimplePushConsumer02 {
     public static void main(String[] args) {
         final MessagingAccessPoint messagingAccessPoint = MessagingAccessPointFactory
             .getMessagingAccessPoint("openmessaging:rocketmq://localhost:9876/namespace");
 
-        final PullConsumer consumer = messagingAccessPoint.createPullConsumer("OMS_HELLO_TOPIC",
-            OMS.newKeyValue().put(NonStandardKeys.CONSUMER_GROUP, "OMS_CONSUMER"));
+        final PushConsumer consumer = messagingAccessPoint.
+            createPushConsumer(OMS.newKeyValue().put(NonStandardKeys.CONSUMER_GROUP, "OMS_CONSUMER_02"));
 
         messagingAccessPoint.startup();
         System.out.printf("MessagingAccessPoint startup OK%n");
@@ -43,16 +38,15 @@ public class SimplePullConsumer {
             }
         }));
 
+        consumer.attachQueue("OMS_HELLO_TOPIC", new MessageListener() {
+            @Override
+            public void onMessage(final Message message, final ReceivedMessageContext context) {
+                System.out.printf("Received one message: %s%n", message.headers().getString(MessageHeader.MESSAGE_ID));
+                context.ack();
+            }
+        });
+
         consumer.startup();
         System.out.printf("Consumer startup OK%n");
-
-        while (true) {
-            Message message = consumer.poll();
-            if (message != null) {
-                String msgId = message.headers().getString(MessageHeader.MESSAGE_ID);
-                System.out.printf("Received one message: %s%n", msgId);
-                consumer.ack(msgId);
-            }
-        }
     }
 }

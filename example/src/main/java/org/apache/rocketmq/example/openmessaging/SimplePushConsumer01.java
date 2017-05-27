@@ -26,13 +26,13 @@ import io.openmessaging.PushConsumer;
 import io.openmessaging.ReceivedMessageContext;
 import io.openmessaging.rocketmq.domain.NonStandardKeys;
 
-public class SimplePushConsumer {
+public class SimplePushConsumer01 {
     public static void main(String[] args) {
         final MessagingAccessPoint messagingAccessPoint = MessagingAccessPointFactory
-            .getMessagingAccessPoint("openmessaging:rocketmq://IP1:9876,IP2:9876/namespace");
+            .getMessagingAccessPoint("openmessaging:rocketmq://localhost:9876/namespace");
 
         final PushConsumer consumer = messagingAccessPoint.
-            createPushConsumer(OMS.newKeyValue().put(NonStandardKeys.CONSUMER_GROUP, "OMS_CONSUMER"));
+            createPushConsumer(OMS.newKeyValue().put(NonStandardKeys.CONSUMER_GROUP, "OMS_CONSUMER_01"));
 
         messagingAccessPoint.startup();
         System.out.printf("MessagingAccessPoint startup OK%n");
