@@ -427,6 +427,13 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
         return response;
     }
 
+    /**
+     * 更新注册中心配置信息
+     *
+     * @param ctx
+     * @param request
+     * @return
+     */
     private RemotingCommand updateConfig(ChannelHandlerContext ctx, RemotingCommand request) {
         log.info("updateConfig called by {}", RemotingHelper.parseChannelRemoteAddr(ctx.channel()));
 
@@ -467,6 +474,13 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
         return response;
     }
 
+    /**
+     * 获取注册中心配置信息
+     *
+     * @param ctx
+     * @param request
+     * @return
+     */
     private RemotingCommand getConfig(ChannelHandlerContext ctx, RemotingCommand request) {
         final RemotingCommand response = RemotingCommand.createResponseCommand(null);
 
