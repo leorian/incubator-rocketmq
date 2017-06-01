@@ -22,9 +22,9 @@ public class TopicConfig {
     private static final String SEPARATOR = " ";
     public static int defaultReadQueueNums = 16;
     public static int defaultWriteQueueNums = 16;
-    private String topicName;
-    private int readQueueNums = defaultReadQueueNums;
-    private int writeQueueNums = defaultWriteQueueNums;
+    private String topicName;//主题名称
+    private int readQueueNums = defaultReadQueueNums;//读队列个数
+    private int writeQueueNums = defaultWriteQueueNums;//写队列个数
     private int perm = PermName.PERM_READ | PermName.PERM_WRITE;
     private TopicFilterType topicFilterType = TopicFilterType.SINGLE_TAG;
     private int topicSysFlag = 0;
@@ -44,6 +44,7 @@ public class TopicConfig {
         this.perm = perm;
     }
 
+    //编码
     public String encode() {
         StringBuilder sb = new StringBuilder();
 
@@ -69,6 +70,7 @@ public class TopicConfig {
         return sb.toString();
     }
 
+    //解码
     public boolean decode(final String in) {
         String[] strs = in.split(SEPARATOR);
         if (strs != null && strs.length == 5) {
@@ -184,8 +186,8 @@ public class TopicConfig {
     @Override
     public String toString() {
         return "TopicConfig [topicName=" + topicName + ", readQueueNums=" + readQueueNums
-            + ", writeQueueNums=" + writeQueueNums + ", perm=" + PermName.perm2String(perm)
-            + ", topicFilterType=" + topicFilterType + ", topicSysFlag=" + topicSysFlag + ", order="
-            + order + "]";
+                + ", writeQueueNums=" + writeQueueNums + ", perm=" + PermName.perm2String(perm)
+                + ", topicFilterType=" + topicFilterType + ", topicSysFlag=" + topicSysFlag + ", order="
+                + order + "]";
     }
 }
