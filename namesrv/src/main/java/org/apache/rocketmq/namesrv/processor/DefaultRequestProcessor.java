@@ -80,28 +80,28 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
                 return this.getKVConfig(ctx, request);
             case RequestCode.DELETE_KV_CONFIG:
                 return this.deleteKVConfig(ctx, request);
-            case RequestCode.REGISTER_BROKER://注册消息服务器
+            case RequestCode.REGISTER_BROKER://注册消息中间件服务器
                 Version brokerVersion = MQVersion.value2Version(request.getVersion());
                 if (brokerVersion.ordinal() >= MQVersion.Version.V3_0_11.ordinal()) {
                     return this.registerBrokerWithFilterServer(ctx, request);
                 } else {
                     return this.registerBroker(ctx, request);
                 }
-            case RequestCode.UNREGISTER_BROKER://注销消息服务器
+            case RequestCode.UNREGISTER_BROKER://注销消息中间件服务器
                 return this.unregisterBroker(ctx, request);
-            case RequestCode.GET_ROUTEINTO_BY_TOPIC:
+            case RequestCode.GET_ROUTEINTO_BY_TOPIC://根据主题获取路由信息
                 return this.getRouteInfoByTopic(ctx, request);
-            case RequestCode.GET_BROKER_CLUSTER_INFO:
+            case RequestCode.GET_BROKER_CLUSTER_INFO://获取消息中间件服务器集群信息
                 return this.getBrokerClusterInfo(ctx, request);
             case RequestCode.WIPE_WRITE_PERM_OF_BROKER:
                 return this.wipeWritePermOfBroker(ctx, request);
-            case RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER:
+            case RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER://获取所有的主题信息
                 return getAllTopicListFromNameserver(ctx, request);
-            case RequestCode.DELETE_TOPIC_IN_NAMESRV:
+            case RequestCode.DELETE_TOPIC_IN_NAMESRV://删除主题
                 return deleteTopicInNamesrv(ctx, request);
             case RequestCode.GET_KVLIST_BY_NAMESPACE:
                 return this.getKVListByNamespace(ctx, request);
-            case RequestCode.GET_TOPICS_BY_CLUSTER:
+            case RequestCode.GET_TOPICS_BY_CLUSTER://获取集群主题信息
                 return this.getTopicsByCluster(ctx, request);
             case RequestCode.GET_SYSTEM_TOPIC_LIST_FROM_NS:
                 return this.getSystemTopicListFromNs(ctx, request);
@@ -111,9 +111,9 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
                 return this.getHasUnitSubTopicList(ctx, request);
             case RequestCode.GET_HAS_UNIT_SUB_UNUNIT_TOPIC_LIST:
                 return this.getHasUnitSubUnUnitTopicList(ctx, request);
-            case RequestCode.UPDATE_NAMESRV_CONFIG:
+            case RequestCode.UPDATE_NAMESRV_CONFIG://更新注册中心配置信息
                 return this.updateConfig(ctx, request);
-            case RequestCode.GET_NAMESRV_CONFIG:
+            case RequestCode.GET_NAMESRV_CONFIG://获取注册中心配置信息
                 return this.getConfig(ctx, request);
             default:
                 break;
