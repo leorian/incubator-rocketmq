@@ -424,10 +424,10 @@ public class RemotingCommand {
         // length
         result.putInt(length);//总的长度 = 4+消息头部长度+消息体长度
 
-        // header length
+        // header length //消息头部长度 = 4
         result.put(markProtocolType(headerData.length, serializeTypeCurrentRPC));
 
-        // header data
+        // header data //消息头部内容
         result.put(headerData);
 
         result.flip();
