@@ -56,10 +56,15 @@ public class RouteInfoManager {
     private final HashMap<String/* brokerAddr */, List<String>/* Filter Server */> filterServerTable;
 
     public RouteInfoManager() {
+        //主题队列
         this.topicQueueTable = new HashMap<String, List<QueueData>>(1024);
+        //消息服务器地址
         this.brokerAddrTable = new HashMap<String, BrokerData>(128);
+        //集群服务器地址
         this.clusterAddrTable = new HashMap<String, Set<String>>(32);
+        //活着的消息服务器地址
         this.brokerLiveTable = new HashMap<String, BrokerLiveInfo>(256);
+        //过滤服务器地址
         this.filterServerTable = new HashMap<String, List<String>>(256);
     }
 
