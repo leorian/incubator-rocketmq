@@ -294,6 +294,14 @@ public class RouteInfoManager {
         return wipeTopicCnt;
     }
 
+    /**
+     * 注销消息中间服务器
+     *
+     * @param clusterName
+     * @param brokerAddr
+     * @param brokerName
+     * @param brokerId
+     */
     public void unregisterBroker(
             final String clusterName,
             final String brokerAddr,
@@ -651,6 +659,12 @@ public class RouteInfoManager {
         return topicList.encode();
     }
 
+    /**
+     * 集群->brokerName集合->主题
+     *
+     * @param cluster
+     * @return
+     */
     public byte[] getTopicsByCluster(String cluster) {
         TopicList topicList = new TopicList();
         try {
@@ -682,6 +696,9 @@ public class RouteInfoManager {
         return topicList.encode();
     }
 
+    /**
+     * @return
+     */
     public byte[] getUnitTopics() {
         TopicList topicList = new TopicList();
         try {
@@ -708,6 +725,9 @@ public class RouteInfoManager {
         return topicList.encode();
     }
 
+    /**
+     * @return
+     */
     public byte[] getHasUnitSubTopicList() {
         TopicList topicList = new TopicList();
         try {
