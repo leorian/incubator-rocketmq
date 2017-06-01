@@ -77,6 +77,11 @@ public class RouteInfoManager {
         return clusterInfoSerializeWrapper.encode();
     }
 
+    /**
+     * 删除主题
+     *
+     * @param topic
+     */
     public void deleteTopic(final String topic) {
         try {
             try {
@@ -90,6 +95,11 @@ public class RouteInfoManager {
         }
     }
 
+    /**
+     * 获取所有的主题
+     *
+     * @return
+     */
     public byte[] getAllTopicList() {
         TopicList topicList = new TopicList();
         try {
@@ -362,6 +372,11 @@ public class RouteInfoManager {
         }
     }
 
+    /**
+     * 删除某个消息中间服务器上的主题信息
+     *
+     * @param brokerName
+     */
     private void removeTopicByBrokerName(final String brokerName) {
         Iterator<Entry<String, List<QueueData>>> itMap = this.topicQueueTable.entrySet().iterator();
         while (itMap.hasNext()) {
@@ -385,6 +400,12 @@ public class RouteInfoManager {
         }
     }
 
+    /**
+     * 获取某个主题的路由信息
+     *
+     * @param topic
+     * @return
+     */
     public TopicRouteData pickupTopicRouteData(final String topic) {
         TopicRouteData topicRouteData = new TopicRouteData();
         boolean foundQueueData = false;
@@ -399,11 +420,13 @@ public class RouteInfoManager {
         try {
             try {
                 this.lock.readLock().lockInterruptibly();
+                //获取某个主题的队列信息
                 List<QueueData> queueDataList = this.topicQueueTable.get(topic);
                 if (queueDataList != null) {
                     topicRouteData.setQueueDatas(queueDataList);
                     foundQueueData = true;
 
+                    //消息中间名称
                     Iterator<QueueData> it = queueDataList.iterator();
                     while (it.hasNext()) {
                         QueueData qd = it.next();
@@ -579,11 +602,15 @@ public class RouteInfoManager {
         }
     }
 
+    /**
+     * 打印注册中心存储信息
+     */
     public void printAllPeriodically() {
         try {
             try {
                 this.lock.readLock().lockInterruptibly();
                 log.info("--------------------------------------------------------");
+                //主题和队列
                 {
                     log.info("topicQueueTable SIZE: {}", this.topicQueueTable.size());
                     Iterator<Entry<String, List<QueueData>>> it = this.topicQueueTable.entrySet().iterator();
@@ -593,6 +620,7 @@ public class RouteInfoManager {
                     }
                 }
 
+                //消息中间服务器名称和地址,一对多，master slave
                 {
                     log.info("brokerAddrTable SIZE: {}", this.brokerAddrTable.size());
                     Iterator<Entry<String, BrokerData>> it = this.brokerAddrTable.entrySet().iterator();
@@ -602,6 +630,7 @@ public class RouteInfoManager {
                     }
                 }
 
+                //活着的消息服务器路由信息
                 {
                     log.info("brokerLiveTable SIZE: {}", this.brokerLiveTable.size());
                     Iterator<Entry<String, BrokerLiveInfo>> it = this.brokerLiveTable.entrySet().iterator();
@@ -611,6 +640,7 @@ public class RouteInfoManager {
                     }
                 }
 
+                //集群信息
                 {
                     log.info("clusterAddrTable SIZE: {}", this.clusterAddrTable.size());
                     Iterator<Entry<String, Set<String>>> it = this.clusterAddrTable.entrySet().iterator();
