@@ -17,7 +17,7 @@ public class P2PProducer {
     public static void main(String args[]) throws MQClientException, UnsupportedEncodingException,
             RemotingException, InterruptedException, MQBrokerException {
         DefaultMQProducer producer = new DefaultMQProducer("leoRain_p2p_producer");
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("172.16.150.178:9876;172.16.150.143:9876");
         producer.start();
         Message msg = new Message("HelloWorld" /* Topic */,
                 "TagA" /* Tag */,

@@ -19,7 +19,7 @@ public class P2PConsumer01 {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-consumer-01");
         //consumer.setMessageModel(MessageModel.BROADCASTING);
         consumer.setMessageModel(MessageModel.CLUSTERING);
-        consumer.setNamesrvAddr("localhost:9876");
+        consumer.setNamesrvAddr("172.16.150.178:9876;172.16.150.143:9876");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.subscribe("HelloWorld", "*");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
