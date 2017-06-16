@@ -19,7 +19,7 @@ public class P2PProducer {
         DefaultMQProducer producer = new DefaultMQProducer("leoRain_p2p_producer");
         producer.setNamesrvAddr("172.16.150.178:9876;172.16.150.143:9876");
         producer.start();
-        Message msg = new Message("HelloWorld" /* Topic */,
+        Message msg = new Message("XZG" /* Topic */,
                 "TagA" /* Tag */,
                 ("Hello RocketMQ ").getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );

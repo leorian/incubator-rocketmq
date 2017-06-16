@@ -16,12 +16,14 @@ import java.util.List;
  */
 public class P2PConsumer01 {
     public static void main(String args[]) throws MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-consumer-01");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-xxXX-01");
         //consumer.setMessageModel(MessageModel.BROADCASTING);
-        consumer.setMessageModel(MessageModel.CLUSTERING);
+        //consumer.setMessageModel(MessageModel.CLUSTERING);
+        consumer.setMessageModel(MessageModel.BROADCASTING);
         consumer.setNamesrvAddr("172.16.150.178:9876;172.16.150.143:9876");
+        //consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_TIMESTAMP);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        consumer.subscribe("HelloWorld", "*");
+        consumer.subscribe("XZG", "TagA");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override

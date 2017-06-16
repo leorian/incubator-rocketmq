@@ -127,6 +127,12 @@ public class NettyRemotingClient extends NettyRemotingAbstract implements Remoti
         return Math.abs(r.nextInt() % 999) % 999;
     }
 
+    public static void main(String args[]) {
+        Random r = new Random();
+        System.out.println(r.nextInt());
+        System.out.println(initValueIndex());
+    }
+
     @Override
     public void start() {
         this.defaultEventExecutorGroup = new DefaultEventExecutorGroup(//

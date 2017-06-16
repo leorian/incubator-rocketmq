@@ -5,6 +5,7 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
@@ -16,12 +17,20 @@ import java.util.List;
  */
 public class P2PConsumer02 {
     public static void main(String args[]) throws MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-consumer-02");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("leoRain-XX-XXFDD");
         //consumer.setMessageModel(MessageModel.BROADCASTING);
-        consumer.setMessageModel(MessageModel.CLUSTERING);
-        consumer.setNamesrvAddr("localhost:9876");
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        consumer.subscribe("HelloWorld", "*");
+        //consumer.setMessageModel(MessageModel.CLUSTERING);
+        //consumer.setMessageModel(MessageModel.BROADCASTING);
+         consumer.setMessageModel(MessageModel.CLUSTERING);
+        //consumer.setMessageModel(MessageModel.BROADCASTING);
+        consumer.setNamesrvAddr("172.16.150.178:9876;172.16.150.143:9876");
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+        //consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_TIMESTAMP);
+        //consumer.setConsumeTimestamp(UtilAll.timeMillisToHumanString3(System.currentTimeMillis()-1000*60*60*24));
+
+        //consumer.setConsumeTimestamp((System.currentTimeMillis() +(1000*24*60*60)) +"");
+
+        consumer.subscribe("XZG", "*");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override
