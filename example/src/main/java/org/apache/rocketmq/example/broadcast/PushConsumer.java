@@ -33,6 +33,7 @@ public class PushConsumer {
 
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
+        consumer.setNamesrvAddr("172.16.150.143:9876;172.16.150.178:9876");
         consumer.setMessageModel(MessageModel.BROADCASTING);
 
         consumer.subscribe("TopicTest", "TagA || TagC || TagD");
